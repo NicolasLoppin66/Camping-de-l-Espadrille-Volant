@@ -2,31 +2,31 @@
 
 namespace App\Controller;
 
-use DateTime;
-use App\Entity\Owners;
-use App\Entity\Clients;
-use App\Entity\Bookings;
-use App\Form\ClientType;
 use App\Entity\Addresses;
 use App\Entity\BillLines;
-use App\Form\BookingType;
+use App\Entity\Bookings;
+use App\Entity\Clients;
+use App\Entity\Owners;
 use App\Form\AddresseType;
-use App\Repository\ClientsRepository;
-use App\Repository\BookingsRepository;
-use App\Repository\ProductsRepository;
+use App\Form\BookingType;
+use App\Form\ClientType;
 use App\Repository\AddressesRepository;
 use App\Repository\BillLinesRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Repository\ExtraChargesRepository;
-use App\Repository\RentalsTypesRepository;
+use App\Repository\BookingsRepository;
+use App\Repository\ClientsRepository;
 use App\Repository\DisponibilitesRepository;
+use App\Repository\ExtraChargesRepository;
+use App\Repository\ProductsRepository;
+use App\Repository\RentalsTypesRepository;
 use App\Repository\SessionPeriodsRepository;
+use DateTime;
+use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class BookingController extends AbstractController
@@ -310,11 +310,8 @@ class BookingController extends AbstractController
         }
 
     }
-    /**
-     * * @Route("/delBooking/{id}", name="booking_del", requirements={"id":"\d+"})
-     * @return void
-     */
 
+    #[Route("/delBooking/{id}", name: "booking_del", requirements: ["id" => "\d+"])]
     public function deleteBooking($id)
     {
 
@@ -383,8 +380,6 @@ class BookingController extends AbstractController
 
     /**
      * Retourne true si l'adresse du formaulaire passé en argument existe dans la base de donnée
-     * @param $address
-     * @return Addresses|null
      */
     public function addressIsExisting($address): ?Addresses
     {
@@ -392,7 +387,6 @@ class BookingController extends AbstractController
             'num' => $address->get('num')->getNormData(),
             'road_name' => $address->get('road_type')->getNormData(),
             'zip' => $address->get('zip')->getNormData(),
-            'country' => $address->get('country')->getNormData()
         ]);
     }
 
