@@ -18,10 +18,10 @@ class ExtraCharges
     private ?string $label = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
-    private ?string $amount_adult = null;
+    private ?string $amount_adults = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
-    private ?string $amount_child = null;
+    private ?string $amount_kids = null;
 
     public function getId(): ?int
     {
@@ -40,26 +40,26 @@ class ExtraCharges
         return $this;
     }
 
-    public function getAmountAdult(): ?string
+    public function getAmountAdults(): ?string
     {
-        return $this->amount_adult;
+        return $this->amount_adults;
     }
 
-    public function setAmountAdult(string $amount_adult): self
+    public function setAmountAdults(string $amount_adults): self
     {
-        $this->amount_adult = $amount_adult;
+        $this->amount_adults = $amount_adults;
 
         return $this;
     }
 
-    public function getAmountChild(): ?string
+    public function getAmountKids(): ?string
     {
-        return $this->amount_child;
+        return $this->amount_kids;
     }
 
-    public function setAmountChild(string $amount_child): self
+    public function setAmountKids(string $amount_kids): self
     {
-        $this->amount_child = $amount_child;
+        $this->amount_kids = $amount_kids;
 
         return $this;
     }

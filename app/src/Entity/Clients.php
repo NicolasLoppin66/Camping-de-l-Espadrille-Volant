@@ -24,13 +24,17 @@ class Clients
     private ?string $email = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $phone = null;
+    private ?string $telephone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $eraseData = null;
+    private ?\DateTimeInterface $eraseDataDay = null;
 
     #[ORM\Column]
-    private ?bool $retentionConsent = null;
+    private ?bool $dataRetentionConsent = null;
+
+    #[ORM\ManyToOne(targetEntity:Addresses::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Addresses $address_id = null;
 
     public function getId(): ?int
     {
@@ -73,38 +77,50 @@ class Clients
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->phone;
+        return $this->telephone;
     }
 
-    public function setPhone(string $phone): self
+    public function setTelephone(string $telephone): self
     {
-        $this->phone = $phone;
+        $this->telephone = $telephone;
 
         return $this;
     }
 
-    public function getEraseData(): ?\DateTimeInterface
+    public function getEraseDataDay(): ?\DateTimeInterface
     {
-        return $this->eraseData;
+        return $this->eraseDataDay;
     }
 
-    public function setEraseData(\DateTimeInterface $eraseData): self
+    public function setEraseDataDay(\DateTimeInterface $eraseDataDay): self
     {
-        $this->eraseData = $eraseData;
+        $this->eraseDataDay = $eraseDataDay;
 
         return $this;
     }
 
-    public function isRetentionConsent(): ?bool
+    public function isDataRetentionConsent(): ?bool
     {
-        return $this->retentionConsent;
+        return $this->dataRetentionConsent;
     }
 
-    public function setRetentionConsent(bool $retentionConsent): self
+    public function setDataRetentionConsent(bool $dataRetentionConsent): self
     {
-        $this->retentionConsent = $retentionConsent;
+        $this->dataRetentionConsent = $dataRetentionConsent;
+
+        return $this;
+    }
+
+    public function getAddressId(): ?Addresses
+    {
+        return $this->address_id;
+    }
+
+    public function setAddressId(?Addresses $address_id): self
+    {
+        $this->address_id = $address_id;
 
         return $this;
     }

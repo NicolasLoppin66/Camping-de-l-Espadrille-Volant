@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OwnersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OwnersRepository::class)]
@@ -23,16 +25,32 @@ class Owners
     private ?string $email = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $phone = null;
+    private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column]
-    private ?bool $retentionConsent = null;
+    private ?bool $dateRetentionConsent = null;
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
+
+    #[ORM\ManyToOne(targetEntity:Addresses::class, inversedBy:'owners')]
+    #[ORM\JoinColumn]
+    private ?Addresses $address_id = null;
+
+    #[ORM\OneToMany(targetEntity: Products::class, mappedBy: 'owner_id')]
+    private Collection $products;
+
+    #[ORM\OneToMany(mappedBy: 'owner_id', targetEntity: OwnersContracts::class)]
+    private Collection $ownersContracts;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->ownersContracts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,14 +93,14 @@ class Owners
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->phone;
+        return $this->telephone;
     }
 
-    public function setPhone(string $phone): self
+    public function setTelephone(string $telephone): self
     {
-        $this->phone = $phone;
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -99,14 +117,14 @@ class Owners
         return $this;
     }
 
-    public function isRetentionConsent(): ?bool
+    public function isDateRetentionConsent(): ?bool
     {
-        return $this->retentionConsent;
+        return $this->dateRetentionConsent;
     }
 
-    public function setRetentionConsent(bool $retentionConsent): self
+    public function setDateRetentionConsent(bool $dateRetentionConsent): self
     {
-        $this->retentionConsent = $retentionConsent;
+        $this->dateRetentionConsent = $dateRetentionConsent;
 
         return $this;
     }
@@ -119,6 +137,78 @@ class Owners
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getAddressId(): ?Addresses
+    {
+        return $this->address_id;
+    }
+
+    public function setAddressId(?Addresses $address_id): self
+    {
+        $this->address_id = $address_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Products>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Products $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setOwnerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getOwnerId() === $this) {
+                $product->setOwnerId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OwnersContracts>
+     */
+    public function getOwnersContracts(): Collection
+    {
+        return $this->ownersContracts;
+    }
+
+    public function addOwnersContract(OwnersContracts $ownersContract): self
+    {
+        if (!$this->ownersContracts->contains($ownersContract)) {
+            $this->ownersContracts->add($ownersContract);
+            $ownersContract->setOwnerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnersContract(OwnersContracts $ownersContract): self
+    {
+        if ($this->ownersContracts->removeElement($ownersContract)) {
+            // set the owning side to null (unless already changed)
+            if ($ownersContract->getOwnerId() === $this) {
+                $ownersContract->setOwnerId(null);
+            }
+        }
 
         return $this;
     }

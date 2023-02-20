@@ -10,9 +10,13 @@
         {% endblock %}
     </head>
     <body>
+    {% include "_partials/_top.html.twig" %}
+    <main class="container">
         {% block body %}{% endblock %}
+    </main>
+    {% include "_partials/_bottom.html.twig" %}
     </body>
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </html>
