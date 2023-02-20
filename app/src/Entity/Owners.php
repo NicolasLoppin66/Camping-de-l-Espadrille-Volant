@@ -36,7 +36,7 @@ class Owners
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    #[ORM\ManyToOne(targetEntity:Addresses::class, inversedBy:'owners')]
+    #[ORM\ManyToOne(targetEntity: Addresses::class, inversedBy: 'owners')]
     #[ORM\JoinColumn]
     private ?Addresses $address_id = null;
 
@@ -181,6 +181,21 @@ class Owners
         }
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->getId(),
+            $this->getEmail(),
+            $this->getPassword(),
+        ]);
+    }
+
+    public function unserialize($data)
+    {
+        list($this->id, $this->email, $this->password)
+            = unserialize($data, ['allowed_classes' => false]);
     }
 
     /**

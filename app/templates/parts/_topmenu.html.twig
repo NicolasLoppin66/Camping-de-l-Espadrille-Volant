@@ -1,0 +1,38 @@
+
+
+{% if is_granted("ROLE_ADMIN") %}
+    <nav class="navbar bg-dark text-light w-100 justify-content-center">
+{#        <a href="{{ path('dashboard') }}" class="navbar-brand nav-link">Dashboard</a>#}
+        <a href="{{ path('app_products') }}" class="navbar-brand">Liste des produits</a>
+        <a href="{{ path('bookingsList') }}" class="navbar-brand">Liste des réservations</a>
+        <a href="{{ path('app_bills') }}" class="navbar-brand">Liste des factures</a>
+        <a href="{{ path('app_client') }}" class="navbar-brand">Liste des clients</a>
+        <a href="{{ path('new_booking') }}" class="navbar-brand">Ajouter une réservation</a>
+{#        <a href="{{ path('app_logout') }}" class="navbar-brand nav-link">Se Déconnecter</a>#}
+    </nav>
+{% endif %}
+
+{% if is_granted("ROLE_OWNER") %}
+    <nav class="navbar navbar-light bg-light w-100 justify-content-center">
+        <a href="{{ path('app_home') }}" class="navbar-brand nav-link">Le Camping</a>
+        <a href="{{ path('housings') }}" class="navbar-brand nav-link">Les hébergements</a>
+        <a href="{{ path('tentsites') }}" class="navbar-brand nav-link">Les emplacements</a>
+{#        <a href="{{ path('bookings_owner') }}" class="navbar-brand nav-link">Mon Espace</a>#}
+
+{#        <a href="{{ path('app_login') }}" class="navbar-brand nav-link">Se Connecter</a>#}
+{#        <a href="{{ path('app_logout') }}" class="navbar-brand nav-link">Se Déconnecter</a>#}
+    </nav>
+{% endif %}
+
+{% if is_granted('ROLE_ADMIN') == false and  is_granted('ROLE_OWNER') == false %}
+    <nav class="navbar navbar-light bg-light w-100 justify-content-center">
+        <a href="{{ path('app_home') }}" class="navbar-brand nav-link">Le Camping</a>
+        <a href="{{ path('housings') }}" class="navbar-brand nav-link">Les hébergements</a>
+        <a href="{{ path('tentsites') }}" class="navbar-brand nav-link">Les emplacements</a>
+
+        <a href="#" class="navbar-brand nav-linky">Infos et Contact</a>
+{#        <a href="{{ path('app_login') }}" class="navbar-brand nav-link">Se Connecter</a>#}
+{#        <a href="{{ path('app_logout') }}" class="navbar-brand nav-link">Se Déconnecter</a>#}
+    </nav>
+{% endif %}
+

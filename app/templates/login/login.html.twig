@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - L'Espadrille Volante{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% if error %}
+
+            <div class="alert">
+                {{error.messageKey}}
+            </div>
+
+        {% endif %}
+
+        <div class="container w-50 py-5">
+            <h2 class="h2 py-5 text-center">Connexion à votre espace</h2>
+            <form action="{{path('app_login')}}" method="post">
+                <div class="form-group mb-2">
+                    <label for="username">Email</label>
+                    <input type="email" class="form-control" id="username" name="_username" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="_password" placeholder="Mot de passe">
+                </div>
+                <div class="my-3 d-flex justify-content-center">
+                    <input class="btn btn-primary mx-1" type="submit" value="Connexion">
+                    <a class="btn btn-warning mx-1" href="{{path('app_home')}}">Annuler</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+

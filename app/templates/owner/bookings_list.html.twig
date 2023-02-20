@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon espace {% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+{% block body %}
+    <div class="container">
+
+        <h1>Réservations des mobile-homes</h1>
+
+
+        {% for mb in mb_bookings %}
+            <h2>Mobile-Home n°{{ mb.0.productId.id }}</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Arrivée</th>
+                    <th>Départ</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for booking in mb %}
+                    <tr>
+                        <td>{{ booking.checkIn | date('d/m/Y') }}</td>
+                        <td>{{ booking.checkOut | date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

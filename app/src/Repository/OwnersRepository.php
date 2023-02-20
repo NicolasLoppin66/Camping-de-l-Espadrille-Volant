@@ -39,6 +39,21 @@ class OwnersRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllOrderedByLabel()
+    {
+        $db = $this->findAllOptimise();
+        return $db->orderBy('o.lastname', 'asc');
+    }
+
+    private function findAllOptimise()
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.address_id', 'a')
+            ->addSelect('a');
+        //->orderBy('p.rental_type', 'desc');
+        //->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Owners[] Returns an array of Owners objects
 //     */

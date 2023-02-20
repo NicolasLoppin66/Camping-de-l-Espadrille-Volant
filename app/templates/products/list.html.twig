@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits {% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Liste des produits</h1>
+
+{#    <form action="{{ path('delProduct') }}"
+          method="post"
+          class="ms-2">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete'~product.id) }}">
+        <button type="submit" class="btn btn-outline-danger btn-sm">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    </form>#}
+
+    {% for msg in app.flashes('success') %}
+        <div class="row d-flex flex-row justify-content-center mb-2">
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        </div>
+    {% endfor %}
+
+
+    <table class="table">
+        <thead>
+            <th scope="col">ID</th>
+            <th scope="col">Type</th>
+            <th scope="col">Label</th>
+            <th scope="col">Propriétaire</th>
+            <th scope="col">#</th>
+
+        </thead>
+
+        <tbody>
+        {% for product in products %}
+
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.rentalType.label }}</td>
+                <td>{{ product.label }}</td>
+                <td>{{ product.ownerId.lastname }}</td>
+                <td>
+                    <span class="float-end d-flex flex-row justify-content-between">
+                        <a href="{{ path("product_details", {id: product.id} ) }}" class="btn btn-outline-primary btn-sm me-2">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a href="{{ path("add_product", {id: product.id} ) }}" class="btn btn-outline-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form action="{{ path('open_season', {id: product.id}) }}"
+                              method="post"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir ouvrir ce logement à la location?')"
+                              class="ms-2">
+                            <input type="hidden" name="_token" value="{{ csrf_token('open'~product.id) }}">
+                            <button type="submit" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </form>
+                        <form action="{{ path('delProduct', {id: product.id}) }}"
+                              method="post"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit?')"
+                              class="ms-2">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete'~product.id) }}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                </span>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+
+
+    </table>
+
+</div>
+
+{% endblock %}

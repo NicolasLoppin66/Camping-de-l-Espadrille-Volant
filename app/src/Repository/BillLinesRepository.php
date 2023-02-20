@@ -39,6 +39,16 @@ class BillLinesRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllLinesForOneBookings($id): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.booking_id = :id')
+            ->setParameters('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return BillLines[] Returns an array of BillLines objects
 //     */

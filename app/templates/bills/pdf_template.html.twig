@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>Mon premier pdf</h1>
+
+    <div>
+        <h3>Jours de locations</h3>
+        <p>p.u : {{ rental.pu }}</p>
+        <p>q : {{ rental.quantity }}</p>
+        <p>total : {{ rental.pu * rental.quantity }} €</p>
+    </div>
+
+    <div>
+        <h3>Piscine Adultes</h3>
+        <p>p.u : {{ poolAdult.pu }}</p>
+        <p>q : {{ poolAdult.quantity }}</p>
+        <p>total : {{ poolAdult.pu * poolAdult.quantity }} €</p>
+    </div>
+
+    <div>
+        <h3>Piscine Enfants</h3>
+        <p>p.u : {{ poolKid.pu }}</p>
+        <p>q : {{ poolKid.quantity }}</p>
+        <p>total : {{ poolKid.pu * poolKid.quantity }} €</p>
+    </div>
+
+    <div>
+        <h3>TS Adultes</h3>
+        <p>p.u : {{ tsAdult.pu }}</p>
+        <p>q : {{ tsAdult.quantity }}</p>
+        <p>total : {{ tsAdult.pu * tsAdult.quantity }} €</p>
+    </div>
+
+    <div>
+        <h3>TS Enfants</h3>
+        <p>p.u : {{ tskid.pu }}</p>
+        <p>q : {{ tskid.quantity }}</p>
+        <p>total : {{ tskid.pu * tskid.quantity }} €</p>
+    </div>
+
+
+</div>

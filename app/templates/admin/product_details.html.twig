@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Détails {% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>{{ product.label }}</h1>
+        <div>
+            Nom : {{ product.rentalType.label }}
+        </div>
+        <div>
+            Propriétaire : {{ product.ownerId.lastname }}
+        </div>
+
+        <h2>Disponibilités:</h2>
+
+        <div class="month">
+
+            <h3 class="month-title">Mai</h3>
+            {% for i in 1..31 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="month">
+            <h3 class="month-title">Juin</h3>
+            {% for i in 1..30 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="month">
+            <h3 class="month-title">Juillet</h3>
+            {% for i in 1..31 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="month">
+            <h3 class="month-title">Août</h3>
+            {% for i in 1..31 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="month">
+            <h3 class="month-title">Septembre</h3>
+            {% for i in 1..30 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="month">
+            <h3 class="month-title">Octobre</h3>
+            {% for i in 1..31 %}
+                <div class="day">
+                    {{ i }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

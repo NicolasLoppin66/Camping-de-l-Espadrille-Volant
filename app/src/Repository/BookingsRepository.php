@@ -21,6 +21,41 @@ class BookingsRepository extends ServiceEntityRepository
         parent::__construct($registry, Bookings::class);
     }
 
+    public static function timeStampToDate($date): string
+    {
+        return date('Y-m-d', $date);
+    }
+
+    /**
+     * prend deux dates et retourne un tableau de strings des jours dans cet intervalle sous le format yyyy-mm-dd
+     */
+    public function daysBetweenTwoDate(string $arrive, string $depart): array
+    {
+        $days_list = [];
+        $days_count = (strtotime($depart) - strtotime($arrive)) / (60 * 60 * 24);
+        $current_day = strtotime($arrive);
+
+        for ($dbtd = 0; $dbtd < $days_count; $dbtd++) {
+            $days_list[] = intval($current_day);
+            $current_day += 86400;
+        }
+
+        return array_map('self::timeStampToDate', $days_list);
+    }
+
+    public function checkAndGetDate($date): ?array
+    {
+        $date = explode('-', $date);
+        $day = $date[2];
+        $month = $date[1];
+        $year = $date[0];
+
+        if (!checkdate($month, $day, $year))
+            return null;
+
+        return [$day, $month, $year];
+    }
+
     public function save(Bookings $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -37,6 +72,26 @@ class BookingsRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    private function findAllOptimise()
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.client_id', 'c')
+            ->addSelect('c')
+            ->join('b.product_id', 'p')
+            ->addSelect('p');
+    }
+
+    public function findAllByOwnerId($id): array
+    {
+        return $this->findAllOptimise()
+            ->join('p.owner_id', 'o')
+            ->addSelect('o')
+            ->where('p.owner_id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('b.product_id', 'asc')
+            ->getQuery()->getResult();
     }
 
 //    /**

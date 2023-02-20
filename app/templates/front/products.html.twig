@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hébergements{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% for product in products %}
+
+            <div class="card">
+                {{ product.label }}
+                <div>
+                    {{ product.description }}
+                </div>
+                <div>
+                    Type d'hébergement : {{ product.rentalType.label }}
+                </div>
+                <div>
+                    Capacité : {{ product.rentalType.capacity }} personnes
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

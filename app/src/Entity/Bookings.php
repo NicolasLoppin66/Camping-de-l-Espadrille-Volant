@@ -38,6 +38,9 @@ class Bookings
     #[ORM\ManyToOne(targetEntity:Products::class, inversedBy: 'bookings')]
     private ?Products $product_id = null;
 
+    #[ORM\ManyToOne(targetEntity:Clients::class)]
+    private ?Clients $client_id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Bookings
     public function setProductId(?Products $product_id): self
     {
         $this->product_id = $product_id;
+
+        return $this;
+    }
+
+    public function getClientId(): ?Clients
+    {
+        return $this->client_id;
+    }
+
+    public function setClientId(?Clients $client_id): self
+    {
+        $this->client_id = $client_id;
 
         return $this;
     }

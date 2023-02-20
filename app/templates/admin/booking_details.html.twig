@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détail de la réservation{% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+{% block body %}
+
+
+    <div class="container m-5">
+        <h1>Détails de la réservation</h1>
+        <h2>{{ booking.productId.label }}</h2>
+
+        <div class="header_info flex flex-row justify-content-between">
+            <div class="w-25">
+                <div><span class="bold">Nom : </span>{{ booking.clientId.lastname }}</div>
+                <div><span class="bold">Prénom : </span>{{ booking.clientId.firstname }}</div>
+                <div>
+                    <span class="bold">Adresse : </span>
+                    <div>{{ booking.clientId.addressId.num }} {{ booking.clientId.addressId.roadType }} {{ booking.clientId.addressId.roadName }}</div>
+                    <div>{{ booking.clientId.addressId.zip }} {{ booking.clientId.addressId.city }}</div>
+                    <div>{{ booking.clientId.addressId.country }}</div>
+                </div>
+                <div><span class="bold">Téléphone : </span>{{ booking.clientId.telephone }}</div>
+                <div><span class="bold">Email : </span>{{ booking.clientId.email }}</div>
+            </div>
+
+            <div class="w-25">
+                <div><span class="bold">Votre réservation : </span>{{ booking.productId.rentalType.label }}</div>
+                <div><span class="bold">Arrivée : </span>{{ booking.checkIn | date('d/m/Y') }}</div>
+                <div><span class="bold">Départ : </span>{{ booking.checkOut | date('d/m/Y')}}</div>
+                <div><span class="bold">Adultes : </span>{{ booking.nbAdults }}</div>
+                <div><span class="bold">Enfants : </span>{{ booking.nbKids }}</div>
+            </div>
+        </div>
+
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Label</th>
+                        <th>p.u</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for line in lines %}
+                    <tr>
+                        <td class="col-sm-4">{{ line.label }}</td>
+                        <td class="col-sm-2">{{ line.pu }}</td>
+                        <td class="col-sm-2">{{ line.quantity }}</td>
+                        <td class="col-sm-2">{{ line.quantity * line.pu }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <div class="total">
+                <div class="text-start bold">Total</div>
+                <div class="text-end bold">{{ total }} €</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

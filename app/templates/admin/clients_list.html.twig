@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des Clients{% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center mt-3">Liste des clients</h1>
+    </div>
+
+    <div class="container">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id}}</td>
+                    <td>{{ client.lastname }}</td>
+                    <td>{{ client.addressId.city }}</td>
+                    <td>{{ client.telephone }}</td>
+                    <td>
+                        <span class="float-end d-flex flex-row justify-content-between">
+                        <a href="{{ path("client_detail", {id: client.id} ) }}" class="btn btn-outline-primary btn-sm me-2">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a href="{{ path("booking_update", {id: client.id} ) }}" class="btn btn-outline-warning btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form action="{{ path('booking_del', {id: client.id}) }}"
+                              method="post"
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')"
+                              class="ms-2">
+                            <input type="hidden" name="_token" value="{{ csrf_token('del'~client.id) }}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+{#                         <a href="{{ path("bill_generate", {id: booking.id} ) }}" class="btn btn-outline-success btn-sm ms-2">#}
+                            {#                            <i class="fa-solid fa-print"></i>#}
+                            {#                        </a>#}
+                </span>
+                    </td>
+                </tr>
+
+
+            {%  endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}

@@ -39,6 +39,51 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
 
+    public function findTentSites()
+    {
+        $db = $this->findAllOptimise();
+        return $db->orderBy('p.rental_type', 'desc')
+            ->where('r.label = :type')
+            ->setParameter('type', 'emplacement 8m2')
+            ->getQuery()->getResult();
+    }
+
+    public function findMobileHome()
+    {
+        $db = $this->findAllOptimise();
+        return $db->orderBy('p.rental_type', 'desc')
+            ->where('r.label = :type')
+            ->setParameter('type', 'mobile-home')
+            ->getQuery()->getResult();
+    }
+
+    public function findCaravane()
+    {
+        $db = $this->findAllOptimise();
+        return $db->orderBy('p.rental_type', 'desc')
+            ->where('r.label = :type')
+            ->setParameter('type', 'caravane')
+            ->getQuery()->getResult();
+    }
+
+    public function findHousing()
+    {
+        $db = $this->findAllOptimise();
+        return $db->orderBy('p.rental_type', 'desc')
+            ->where('r.label != :type')
+            ->setParameter('type', 'emplacement')
+            ->getQuery()->getResult();
+    }
+
+    private function findAllOptimise()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.rental_type', 'r')
+            ->addSelect('r');
+        //->orderBy('p.rental_type', 'desc');
+        //->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Products[] Returns an array of Products objects
 //     */

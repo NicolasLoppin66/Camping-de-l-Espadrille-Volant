@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détail de la réservation{% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+{% block body %}
+    <h2>Facture du séjour</h2>
+
+    <div>
+        <h4>Hébergement</h4>
+        <div>{{ bill.rentalName }}</div>
+    </div>
+
+    <div>
+        <h4>Client</h4>
+        <div>
+            <p>{{ bill.firstname }} {{ bill.lastname }}</p>
+            <p>{{ address.num }} {{ address.roadType }}  {{ address.roadName }}</p>
+            <p>{{ address.zip}} {{ address.city }}</p>
+            <p>{{ address.country }}</p>
+        </div>
+    </div>
+
+    <div>
+        <h4>Prestations</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Label</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix Unitaire</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td scope="row">Journées de location</td>
+                    <td>{{ days }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}

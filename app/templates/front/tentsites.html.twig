@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emplacements de camping{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% for tent in products %}
+
+            <div class="card">
+                {{ tent.label }}
+                <div>
+                    {{ tent.description }}
+                </div>
+                <div>
+                    Type d'hébergement : {{ tent.rentalType.label }}
+                </div>
+                <div>
+                    Surface : {{ tent.rentalType.capacity }} m2
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détail Clients{% endblock %}
+{% block header %} {{ include('parts/_header.html.twig') }} {% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-center mt-3">Client : {{ client.lastname }} {{ client.firstname }}</h1>
+        <div>
+            <a href="{{ path("client_detail", {id: client.id} ) }}" class="btn btn-outline-primary btn-sm me-2">
+                <i class="fa-solid fa-eye"></i>
+            </a>
+            <a href="{{ path("booking_update", {id: client.id} ) }}" class="btn btn-outline-warning btn-sm">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <form action="{{ path('booking_del', {id: client.id}) }}"
+                  method="post"
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')"
+                  class="ms-2">
+                <input type="hidden" name="_token" value="{{ csrf_token('del'~client.id) }}">
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>{{ client.id}}</td>
+                </tr>
+                <tr>
+                    <td>Nom</td>
+                    <td>{{ client.lastname }}</td>
+                </tr>
+                <tr>
+                    <td>Prénom</td>
+                    <td>{{ client.firstname }}</td>
+                </tr>
+                <tr>
+                    <td>Adresse</td>
+                    <td>{{ client.addressId.num }} {{ client.addressId.roadType }} {{ client.addressId.roadName }}</td>
+                </tr>
+                <tr>
+                    <td>Ville</td>
+                    <td>{{ client.addressId.zip }} {{ client.addressId.city }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ client.email }}</td>
+                </tr>
+                <tr>
+                    <td>Téléphone</td>
+                    <td>{{ client.telephone }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<header class="position-relative">
+    {% if app.user %}
+        <div class="position-absolute top-0 end-0">
+            <a href="{{ path('app_logout') }}" class="btn btn-primary">
+                Se Déconnecter
+            </a>
+        </div>
+
+    {% else %}
+        <div class="position-absolute top-0 end-0">
+            <a href="{{ path('app_login') }}" class="btn btn-primary">
+                Se Connecter
+            </a>
+        </div>
+
+    {% endif %}
+
+     {{ include('parts/_topmenu.html.twig')}}
+</header>
