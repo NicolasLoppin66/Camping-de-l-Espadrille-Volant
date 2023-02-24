@@ -6,7 +6,6 @@
 <div class="container">
 
     <h1>Liste des produits</h1>
-
 {#    <form action="{{ path('delProduct') }}"
           method="post"
           class="ms-2">
@@ -15,7 +14,6 @@
             <i class="fa-solid fa-trash"></i>
         </button>
     </form>#}
-
     {% for msg in app.flashes('success') %}
         <div class="row d-flex flex-row justify-content-center mb-2">
             <div class="alert alert-success">
@@ -23,8 +21,6 @@
             </div>
         </div>
     {% endfor %}
-
-
     <table class="table">
         <thead>
             <th scope="col">ID</th>
@@ -32,12 +28,9 @@
             <th scope="col">Label</th>
             <th scope="col">Propriétaire</th>
             <th scope="col">#</th>
-
         </thead>
-
         <tbody>
         {% for product in products %}
-
             <tr>
                 <th scope="row">{{ product.id }}</th>
                 <td>{{ product.rentalType.label }}</td>
@@ -71,15 +64,9 @@
                         </form>
                 </span>
                 </td>
-
             </tr>
-
         {% endfor %}
         </tbody>
-
-
     </table>
-
 </div>
-
 {% endblock %}

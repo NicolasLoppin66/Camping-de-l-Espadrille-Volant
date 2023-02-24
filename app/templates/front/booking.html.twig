@@ -1,14 +1,8 @@
-
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-
     <div class="container">
-
         <h1>Ajouter une réservation</h1>
-
-
         {% for msg in app.flashes('success') %}
             <div class="row d-flex flex-row justify-content-center mb-2">
                 <div class="alert alert-warning">
@@ -16,10 +10,7 @@
                 </div>
             </div>
         {% endfor %}
-
-
         {{ form_start(booking) }}
-
         <div class="row">
 
             <div class="form-group justify-content-center mb-4">
@@ -51,19 +42,8 @@
             <div class="form-group justify-content-center mb-4">
                 <h3>Adresse :</h3>
                 <div class="col-sm-6">{{ form_rest(address) }}</div>
-
             </div>
         </div>
-
-
-
-
-
-
-
         {{ form_end(booking) }}
-
     </div>
-
-
 {% endblock %}

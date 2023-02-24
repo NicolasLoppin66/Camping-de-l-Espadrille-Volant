@@ -4,9 +4,7 @@
 
 {% block body %}
     <div class="container">
-
         {% for tent in products %}
-
             <div class="card">
                 {{ tent.label }}
                 <div>
@@ -19,9 +17,6 @@
                     Surface : {{ tent.rentalType.capacity }} m2
                 </div>
             </div>
-
         {% endfor %}
     </div>
-
-
 {% endblock %}

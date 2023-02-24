@@ -18,6 +18,7 @@ use App\Entity\OwnersContracts;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 
 class AppFixtures extends Fixture
 {
@@ -63,7 +64,7 @@ class AppFixtures extends Fixture
         }
 
         // Partie propriétaire
-        // Création de camping de façon aléatoire
+        // Création du compte admin
         $camping = new Owners();
 
         $camping->setAddressId($this->getReference('address-1'))
