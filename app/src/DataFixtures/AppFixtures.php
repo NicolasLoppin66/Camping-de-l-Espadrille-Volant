@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
 
         $camping->setAddressId($this->getReference('address-1'))
             ->setDateRetentionConsent(rand(0, 1))
-            ->setEmail('camping-lespadrillevolante@contact-pro.fr')
+            ->setEmail('camping-lespadrillevolante@contact.fr')
             ->setFirstName('SAS')
             ->setLastName("l'Espadrille Volante ⭐⭐⭐")
             ->setTelephone($faker->phoneNumber)

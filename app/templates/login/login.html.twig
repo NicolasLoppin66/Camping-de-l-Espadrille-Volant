@@ -5,13 +5,13 @@
 {% block body %}
 
     <div class="container">
-        {% if error %}
-            <div class="alert">
-                {{error.messageKey}}
-            </div>
-        {% endif %}
         <div class="container w-50 py-5">
             <h2 class="h2 py-5 text-center">Connexion à votre espace</h2>
+            {% if error %}
+                <div class="alert bg-warning justify-content-center">
+                    {{error.messageKey}}
+                </div>
+            {% endif %}
             <form action="{{path('app_login')}}" method="post">
                 <div class="form-group mb-2">
                     <label for="username">Email</label>
