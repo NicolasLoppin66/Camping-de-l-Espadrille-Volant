@@ -24,12 +24,16 @@ class AppFixtures extends Fixture
 {
     private $hasher;
 
-    public function __construct(UserPasswordHasherInterface $hasher) {
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
         $this->hasher = $hasher;
     }
 
     public function load(ObjectManager $manager): void
     {
+        $arrOwner = [];
+        $arrClient = [];
+
         // Récupération du module de randomisation
         $faker = Faker\Factory::create('fr_FR');
 
@@ -60,6 +64,7 @@ class AppFixtures extends Fixture
                 ->setTelephone($faker->phoneNumber);
 
             $manager->persist($client);
+            $arrClient[] = $client;
             $this->addReference('client-' . $c, $client);
         }
 
@@ -77,9 +82,10 @@ class AppFixtures extends Fixture
             ->setRole('ROLE_ADMIN');
 
         $manager->persist($camping);
+
         $this->addReference('owner-1', $camping);
 
-        for ($o = 0; $o > 20; $o++) {
+        for ($o = 0; $o < 20; $o++) {
             $owner = new Owners();
 
             $owner->setAddressId($this->getReference('address-' . rand(2, 50)))
@@ -91,14 +97,15 @@ class AppFixtures extends Fixture
                 ->setPassword($this->hasher->hashPassword($camping, 'owner'))
                 ->setRole('ROLE_OWNER');
 
+
             $manager->persist($owner);
-            $this->addReference('owner-' . ($o + 1), $owner);
+            $arrOwner[] = $owner;
         }
 
         // Création des contracts de façon aléatoire
         for ($c = 0; $c < 30; $c++) {
             $contract = new OwnersContracts();
-            $contract->setProductId(rand(1, 30));
+            $contract->setProductId($faker->randomElement($arrOwner));
         }
 
         // Création des charge supplémentaire de façon aléatoire
@@ -159,7 +166,7 @@ class AppFixtures extends Fixture
         //mobiles-homes
         for ($i = 0; $i < 50; $i++) {
             $product = new Products();
-            $product->setOwnerId($this->getReference('owner-' . rand(1, 20)))
+            $product->setOwnerId($faker->randomElement($arrOwner))
                 ->setRentalType($this->getReference('type-' . rand(6, 8)))
                 ->setLabel($faker->sentence(15))
                 ->setDescription(($faker->sentence(100)));
@@ -185,7 +192,7 @@ class AppFixtures extends Fixture
 
             $product = $this->getReference('product-' . rand(0, 89));
 
-            $booking->setClientId($this->getReference('client-' . rand(0, 19)))
+            $booking->setClientId($faker->randomElement($arrClient))
                 ->setNbAdults($adults)
                 ->setNbKids($kids)
                 ->setPoolAccessAdults($nb_poolAccessAdult)
@@ -233,14 +240,12 @@ class AppFixtures extends Fixture
                 ->setPu(.35);
 
             $manager->persist($booking);
-
             $manager->persist($bill_rental);
             $manager->persist($bill_adult_pool);
             $manager->persist($bill_Kid_pool);
             $manager->persist($bill_adult_tax);
             $manager->persist($bill_kid_tax);
         }
-
 
         //disponibilites
         $begin = new DateTime('2022-05-05');

@@ -32,7 +32,7 @@ class Clients
     #[ORM\Column]
     private ?bool $dataRetentionConsent = null;
 
-    #[ORM\ManyToOne(targetEntity:Addresses::class)]
+    #[ORM\ManyToOne(targetEntity: Addresses::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Addresses $address_id = null;
 
